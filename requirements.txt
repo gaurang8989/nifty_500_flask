@@ -46,7 +46,6 @@ six==1.15.0
 soupsieve==2.2.1
 sqlparse==0.3.1
 tornado==6.1
-traitlets==5.0.5
 urllib3==1.26.4
 virtualenv==20.0.23
 virtualenv-clone==0.5.4
