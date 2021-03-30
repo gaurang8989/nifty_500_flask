@@ -31,8 +31,7 @@ def fun():
     span = mc_soup.find_all('span', class_='gld13')
     company_span_list = [spani.text[:-37] for spani in span]
 
-    filename = 'static/mc_NIFTY_500_company.csv'
-    with open(filename, 'w', encoding='utf-8', newline='') as f:
+    with open('static/mc_NIFTY_500_company.csv', 'w', encoding='utf-8', newline='') as f:
         company_name = '\n'.join(company_span_list)
         f.write(company_name)
         f.close()
@@ -115,17 +114,11 @@ def fun():
     NIFTY_500_sheet.save()
 
     ### Now remove the unnnecessory CSV files
-    os.remove('static/mc_NIFTY_500_company.csv')
-    os.remove('static/mc_NIFTY_digits.csv')
+    # os.remove('static/mc_NIFTY_500_company.csv')
+    # os.remove('static/mc_NIFTY_digits.csv')
+
     print('SpreadSheet is Ready for U!')
 
-
-
-
-# @app.route("/favicon.ico")
-# def favicon():
-#     print('favicon')
-#     return "", 200
 
 @app.route('/')
 def home():
