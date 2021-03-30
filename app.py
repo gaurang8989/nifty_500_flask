@@ -8,6 +8,8 @@ import numpy as np
 import csv
 import os
 
+app = Flask(__name__)
+
 def print_hi(name):
     print(f'{name}')
 
@@ -32,7 +34,7 @@ def fun():
     span = mc_soup.find_all('span', class_='gld13')
     company_span_list = [spani.text[:-37] for spani in span]
 
-    filename = 'mc_NIFTY_500_company.csv'
+    filename = 'static/mc_NIFTY_500_company.csv'
     with open(filename, 'w', encoding='utf-8', newline='') as f:
         company_name = '\n'.join(company_span_list)
         f.write(company_name)
@@ -78,7 +80,7 @@ def fun():
     ############################## Done with This
 
     # data setup in CSV
-    with open('mc_NIFTY_digits.csv', 'w', encoding='utf-8', newline='') as f:
+    with open('static/mc_NIFTY_digits.csv', 'w', encoding='utf-8', newline='') as f:
         writer = csv.writer(f)
         #      writer.writerow(column_titles[1:])
         for i in range(0, 2505, 5):
@@ -87,12 +89,12 @@ def fun():
     ############33 All done with CSV Table partition
 
     # Clear entire csv file
-    with open('final_mc_NIFTY_list.csv', 'w+', encoding='utf-8') as f:
+    with open('static/final_mc_NIFTY_list.csv', 'w+', encoding='utf-8') as f:
         f.truncate()
         f.close
 
-    with open('mc_NIFTY_digits.csv', 'r', encoding='utf-8') as read_temp, open('mc_NIFTY_500_company.csv', 'r',encoding='utf-8') as header, open(
-            'final_mc_NIFTY_list.csv', 'a', encoding='utf-8', newline='') as final_list:
+    with open('static/mc_NIFTY_digits.csv', 'r', encoding='utf-8') as read_temp, open('static/mc_NIFTY_500_company.csv', 'r',encoding='utf-8') as header, open(
+            'static/final_mc_NIFTY_list.csv', 'a', encoding='utf-8', newline='') as final_list:
         reader = csv.reader(read_temp)
         writer = csv.reader(header)
         final_obj = csv.writer(final_list)
@@ -105,19 +107,19 @@ def fun():
         final_list.close()
 
         ## Generate Excel file
-        csv_list = pd.read_csv('final_mc_NIFTY_list.csv')
+        csv_list = pd.read_csv('static/final_mc_NIFTY_list.csv')
 
-        NIFTY_500_sheet = pd.ExcelWriter('NIFTY_500_sheet.xlsx')
+        NIFTY_500_sheet = pd.ExcelWriter('static/NIFTY_500_sheet.xlsx')
         csv_list.to_excel(NIFTY_500_sheet, index=False)
         NIFTY_500_sheet.save()
 
         ### Now remove the unnnecessory CSV files
-        os.remove('mc_NIFTY_500_company.csv')
-        os.remove('mc_NIFTY_digits.csv')
+        os.remove('static/mc_NIFTY_500_company.csv')
+        os.remove('static/mc_NIFTY_digits.csv')
         print('SpreadSheet is Ready for U!')
 
 
-app = Flask(__name__)
+
 
 @app.route("/favicon.ico")
 def favicon():
