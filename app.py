@@ -133,7 +133,7 @@ def home():
 
 print('I am Here IN APP')
 print_hi('Moneycontrol NIFTY 500')
-fun()        
+# fun()        
 
 
 if __name__ == '__main__':
