@@ -1,5 +1,6 @@
 from flask import Flask, render_template, url_for, request, session, redirect, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
+from datetime import datetime
 
 from urllib.request import urlopen
 from bs4 import BeautifulSoup as soup
@@ -11,6 +12,10 @@ import os
 app = Flask(__name__)
 
 def fun():
+    # datetime object containing current date and time
+    now = datetime.now()
+    print("now =", now)
+
     print('I am Here IN FUN')
     mc_url = "https://www.moneycontrol.com/stocks/marketstats/nse-mostactive-stocks/nifty-500-7/"
     mc_data = urlopen(mc_url)
@@ -122,10 +127,15 @@ def fun():
 
 @app.route('/')
 def home():
-    print('index')
+    fun()
     return render_template('index.html')
 
-fun()        
+# @app.route('/')
+# def home():
+#     print('web page 2 load')
+#     return render_template('2.html')    
+
+# fun()        
 
 
 if __name__ == '__main__':
